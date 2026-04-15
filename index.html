@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    Syncra Digital - Premium Single File Landing Page
+    -------------------------------------------------
+    Notes for developers:
+    - This is a one-file landing page using embedded CSS only.
+    - Brand logo is loaded from the local assets folder.
+    - Remote images are used to elevate the presentation quality.
+    - The layout includes subtle CSS animations and a floating WhatsApp button.
+    - The contact form is front-end only and can later be connected to any backend/form service.
+  -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Syncra Digital | Websites, Automation & Data Solutions</title>
+  <meta
+    name="description"
+    content="Syncra Digital helps businesses grow with modern websites, automation systems, and practical data solutions."
+  />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap");
+    /* =========================
+       Base / Reset
+       ========================= */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Manrope", Arial, Helvetica, sans-serif;
+      color: #eaf2ff;
+      line-height: 1.6;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at top left, rgba(28,123,255,.18), transparent 25%),
+        radial-gradient(circle at top right, rgba(34,205,255,.12), transparent 20%),
+        linear-gradient(180deg, #03111f 0%, #071a2d 46%, #08111b 100%);
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    :root {
+      --primary: #1f8fff;
+      --primary-dark: #0b63f3;
+      --accent: #85cdff;
+      --white: #ffffff;
+      --text: #eaf2ff;
+      --muted: #aab9cf;
+      --muted-2: #8da0ba;
+      --line: rgba(255,255,255,.10);
+      --card: rgba(255,255,255,.05);
+      --card-strong: rgba(255,255,255,.08);
+      --success: #25d366;
+      --shadow: 0 24px 60px rgba(0,0,0,.28);
+      --radius-xl: 30px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --max-width: 1180px;
+    }
+
+    .container { width: min(92%, var(--max-width)); margin: 0 auto; }
+    .section { padding: 96px 0; position: relative; z-index: 1; }
+    .section-tag {
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(31,143,255,.12);
+      border: 1px solid rgba(133,205,255,.12);
+      color: #9fd2ff;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .section-title {
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      line-height: 1.05;
+      letter-spacing: -.04em;
+      margin-bottom: 16px;
+      color: var(--white);
+      font-weight: 800;
+    }
+    .section-copy {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    /* =========================
+       Animations
+       ========================= */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(26px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes floatY {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(37,211,102,.45); }
+      70% { box-shadow: 0 0 0 18px rgba(37,211,102,0); }
+      100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+    }
+    .animate-up { animation: fadeUp .8s ease both; }
+    .delay-1 { animation-delay: .12s; }
+    .delay-2 { animation-delay: .24s; }
+    .delay-3 { animation-delay: .36s; }
+
+    /* =========================
+       Header
+       ========================= */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(4,15,29,.72);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-mark {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid rgba(255,255,255,.75);
+      box-shadow: 0 14px 32px rgba(0,0,0,.18);
+      padding: 6px;
+    }
+    .brand-mark img {
+      width: 82%;
+      height: 82%;
+      object-fit: contain;
+    }
+    .brand-text strong {
+      display: block;
+      color: white;
+      font-size: 1.08rem;
+      line-height: 1;
+      font-weight: 800;
+    }
+    .brand-text span {
+      display: block;
+      color: var(--muted-2);
+      font-size: .74rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      margin-top: 6px;
+      font-weight: 700;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .nav-links a:hover { color: white; }
+    .nav-cta, .btn-primary, .btn-secondary, .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: .25s ease;
+      border: 1px solid transparent;
+    }
+    .nav-cta, .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      box-shadow: 0 18px 36px rgba(31,143,255,.24);
+    }
+    .nav-cta:hover, .btn-primary:hover { transform: translateY(-2px); }
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.12);
+    }
+    .btn-secondary:hover { transform: translateY(-2px); background: rgba(255,255,255,.09); }
+
+    /* =========================
+       Hero
+       ========================= */
+    .hero {
+      padding: 92px 0 60px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .hero-copy h1 {
+      font-size: clamp(3.2rem, 6.2vw, 5.8rem);
+      line-height: .92;
+      letter-spacing: -.06em;
+      max-width: 12ch;
+      margin-bottom: 22px;
+      font-weight: 800;
+    }
+    .hero-copy p {
+      max-width: 760px;
+      color: #d9e7f8;
+      font-size: 1.14rem;
+      margin-bottom: 28px;
+      font-weight: 700;
+    }
+    .hero-highlight {
+      background: linear-gradient(90deg, #fff 0%, #a6d7ff 45%, #55b1ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 200% auto;
+      animation: shimmer 6s linear infinite;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .meta-pill {
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      color: var(--muted);
+      font-size: .94rem;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 620px;
+    }
+    .visual-main, .visual-top, .visual-bottom {
+      position: absolute;
+      overflow: hidden;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      background: rgba(255,255,255,.05);
+      backdrop-filter: blur(10px);
+    }
+    .visual-main {
+      inset: 40px 8px 70px 68px;
+      animation: floatY 6s ease-in-out infinite;
+    }
+    .visual-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .92;
+    }
+    .visual-top {
+      top: 0;
+      right: 0;
+      width: 240px;
+      padding: 18px;
+      z-index: 2;
+      background: rgba(3, 12, 24, 0.94);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 20px 46px rgba(0,0,0,.34);
+      animation: fadeUp .8s ease both, floatY 7s ease-in-out infinite .3s;
+    }
+    .mini-logo {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: #ffffff;
+      border: 1px solid rgba(255,255,255,.35);
+      box-shadow: 0 10px 24px rgba(0,0,0,.16);
+      margin-bottom: 14px;
+      padding: 6px;
+    }
+    .mini-logo img {
+      width: 78%;
+      height: 78%;
+      object-fit: contain;
+    }
+    .visual-top h3 {
+      color: white;
+      font-size: 1.14rem;
+      margin-bottom: 8px;
+      font-weight: 800;
+    }
+    .visual-top p {
+      color: #e5f0ff;
+      font-size: .98rem;
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .metric-box {
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.07);
+    }
+    .metric-box strong {
+      display: block;
+      color: white;
+      font-size: 1.08rem;
+      font-weight: 800;
+    }
+    .metric-box span {
+      color: #dbe8f9;
+      font-size: .9rem;
+      font-weight: 700;
+    }
+    .visual-bottom {
+      left: 0;
+      bottom: 0;
+      width: 270px;
+      padding: 16px;
+      z-index: 2;
+      animation: fadeUp .8s ease both, floatY 7.4s ease-in-out infinite;
+    }
+    .visual-bottom h4 {
+      color: white;
+      margin-bottom: 10px;
+      font-size: .98rem;
+    }
+    .visual-bottom ul {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+    .visual-bottom li {
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.07);
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    /* =========================
+       Trust stats
+       ========================= */
+    .trust-bar { padding: 20px 0 10px; }
+    .trust-wrap {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .trust-card {
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 16px 40px rgba(0,0,0,.18);
+    }
+    .trust-card strong {
+      display: block;
+      color: white;
+      font-size: 1.28rem;
+      margin-bottom: 4px;
+      font-weight: 800;
+    }
+    .trust-card span {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    /* =========================
+       Services
+       ========================= */
+    .services-grid {
+      margin-top: 42px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .service-card {
+      padding: 28px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.09);
+      box-shadow: 0 18px 50px rgba(0,0,0,.18);
+      transition: .28s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(133,205,255,.2);
+      box-shadow: 0 24px 54px rgba(0,0,0,.24);
+    }
+    .service-icon {
+      width: 62px;
+      height: 62px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #dcecff;
+      background: linear-gradient(135deg, rgba(31,143,255,.22), rgba(11,99,243,.12));
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .service-card h3 {
+      color: white;
+      font-size: 1.34rem;
+      margin-bottom: 12px;
+      font-weight: 800;
+    }
+    .service-card p {
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .service-card ul {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      color: #dcecff;
+      font-size: .94rem;
+    }
+    .service-card li::before {
+      content: "•";
+      color: #64b2ff;
+      margin-right: 8px;
+    }
+
+    /* =========================
+       Showcase / About
+       ========================= */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 34px;
+      align-items: center;
+      margin-top: 42px;
+    }
+    .feature-image {
+      position: relative;
+      min-height: 520px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .feature-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .84;
+    }
+    .feature-badge {
+      position: absolute;
+      left: 22px;
+      bottom: 22px;
+      max-width: 260px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(4,15,29,.74);
+      border: 1px solid rgba(255,255,255,.1);
+      color: white;
+      backdrop-filter: blur(10px);
+    }
+    .feature-badge strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+    .feature-badge span {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    .feature-content {
+      display: grid;
+      gap: 18px;
+    }
+    .feature-panel {
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 16px 40px rgba(0,0,0,.16);
+    }
+    .feature-panel h3 {
+      color: white;
+      font-size: 1.14rem;
+      margin-bottom: 8px;
+      font-weight: 800;
+    }
+    .feature-panel p {
+      color: var(--muted);
+      font-size: .97rem;
+    }
+
+    /* =========================
+       Process
+       ========================= */
+    .process-grid {
+      margin-top: 42px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    .process-card {
+      padding: 26px 22px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 16px 40px rgba(0,0,0,.16);
+    }
+    .process-number {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .process-card h3 {
+      color: white;
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+    .process-card p {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    /* =========================
+       Contact
+       ========================= */
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 28px;
+      margin-top: 42px;
+    }
+    .contact-panel, .form-panel {
+      padding: 30px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+    }
+    .contact-panel h3, .form-panel h3 {
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      font-weight: 800;
+    }
+    .contact-panel p, .form-panel p {
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+    .contact-list {
+      list-style: none;
+      display: grid;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .contact-list li {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.07);
+      color: var(--muted);
+    }
+    .contact-list strong { color: white; }
+    .whatsapp-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #25d366, #15b956);
+      color: white;
+      box-shadow: 0 18px 40px rgba(37,211,102,.24);
+    }
+    .whatsapp-btn:hover { transform: translateY(-2px); }
+
+    .contact-form {
+      display: grid;
+      gap: 16px;
+    }
+    .form-group {
+      display: grid;
+      gap: 8px;
+    }
+    .form-group label {
+      color: #dcebff;
+      font-weight: 800;
+      font-size: .95rem;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 15px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.05);
+      color: white;
+      outline: none;
+      transition: .2s ease;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: #8fa2bc;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: rgba(133,205,255,.4);
+      box-shadow: 0 0 0 4px rgba(31,143,255,.12);
+      background: rgba(255,255,255,.07);
+    }
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    /* =========================
+       Footer
+       ========================= */
+    .site-footer {
+      padding: 30px 0 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-wrap {
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      color: var(--muted-2);
+      font-size: .95rem;
+    }
+
+    /* =========================
+       Floating WhatsApp
+       ========================= */
+    .floating-whatsapp {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 82px;
+      height: 82px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #ffffff;
+      color: #25d366;
+      font-size: 2.35rem;
+      border: 3px solid #25d366;
+      box-shadow: 0 20px 44px rgba(37,211,102,.28);
+      z-index: 70;
+      animation: pulseGlow 2.3s infinite;
+      transition: .25s ease;
+    }
+    .floating-whatsapp:hover {
+      transform: translateY(-4px) scale(1.04);
+    }
+
+    /* =========================
+       Responsive
+       ========================= */
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .feature-grid,
+      .contact-wrap {
+        grid-template-columns: 1fr;
+      }
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .process-grid,
+      .trust-wrap {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .hero-visual {
+        min-height: 560px;
+      }
+      .visual-main {
+        inset: 34px 18px 70px 40px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .section { padding: 76px 0; }
+
+      .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 14px 18px;
+      }
+
+      .hero { padding-top: 62px; }
+
+      .hero-copy h1 {
+        font-size: clamp(2.4rem, 13vw, 4rem);
+        max-width: 100%;
+      }
+
+      .hero-actions,
+      .hero-meta {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .nav-cta,
+      .btn-primary,
+      .btn-secondary,
+      .whatsapp-btn {
+        width: 100%;
+      }
+
+      .services-grid,
+      .process-grid,
+      .trust-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 500px;
+      }
+
+      .visual-main {
+        inset: 60px 0 110px 0;
+      }
+
+      .visual-top {
+        width: 210px;
+      }
+
+      .visual-bottom {
+        width: 220px;
+      }
+
+      .footer-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Decorative page-level visual background -->
+  <header class="site-header">
+    <div class="container nav">
+      <a href="#top" class="brand" aria-label="Syncra Digital home">
+        <div class="brand-mark">
+          <img src="assets/syncra_logo_1-removebg-preview.png" alt="Syncra Digital logo" />
+        </div>
+        <div class="brand-text">
+          <strong>Syncra Digital</strong>
+          <span>Digital Solutions Agency</span>
+        </div>
+      </a>
+
+      <!-- Main one-page navigation -->
+      <nav aria-label="Primary navigation">
+        <ul class="nav-links">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <a class="nav-cta" href="#contact">Book a Discovery Call</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero section: premium first impression -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="section-tag animate-up">Premium digital execution</div>
+          <h1 class="animate-up delay-1">
+            We build <span class="hero-highlight">clean websites</span>, smart automation, and better business systems.
+          </h1>
+          <p class="animate-up delay-2">
+            Syncra Digital helps businesses look sharper online, automate repetitive operations,
+            and organize data into clear systems that support growth, speed, and better decisions.
+          </p>
+
+          <div class="hero-actions animate-up delay-3">
+            <a href="#contact" class="btn-primary">Start Your Project</a>
+            <a href="#services" class="btn-secondary">Explore Services</a>
+          </div>
+
+          <div class="hero-meta animate-up delay-3">
+            <div class="meta-pill">Modern design</div>
+            <div class="meta-pill">Automation workflows</div>
+            <div class="meta-pill">Practical data solutions</div>
+          </div>
+        </div>
+
+        <!-- Right side hero composition with premium imagery -->
+        <div class="hero-visual">
+          <div class="visual-main">
+            <img
+              src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80"
+              alt="Modern team workspace and digital collaboration"
+            />
+          </div>
+
+          <div class="visual-top">
+            <div class="mini-logo">
+              <img src="assets/syncra_logo_1-removebg-preview.png" alt="Syncra Digital brand mark" />
+            </div>
+            <h3>Built for modern businesses</h3>
+            <p>High-clarity digital experiences designed to convert attention into action.</p>
+            <div class="metric-grid">
+              <div class="metric-box">
+                <strong>Web</strong>
+                <span>Modern presence</span>
+              </div>
+              <div class="metric-box">
+                <strong>Auto</strong>
+                <span>Less manual work</span>
+              </div>
+              <div class="metric-box">
+                <strong>Data</strong>
+                <span>Cleaner insights</span>
+              </div>
+              <div class="metric-box">
+                <strong>UX</strong>
+                <span>Better engagement</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="visual-bottom">
+            <h4>What we improve</h4>
+            <ul>
+              <li>Faster lead capture and online credibility</li>
+              <li>Automated repetitive tasks and workflows</li>
+              <li>Cleaner visibility into performance and operations</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick trust / positioning cards -->
+    <section class="trust-bar">
+      <div class="container trust-wrap">
+        <div class="trust-card">
+          <strong>Premium</strong>
+          <span>Presentation that makes your brand feel credible and modern</span>
+        </div>
+        <div class="trust-card">
+          <strong>Efficient</strong>
+          <span>Automation systems that reduce delays and manual effort</span>
+        </div>
+        <div class="trust-card">
+          <strong>Practical</strong>
+          <span>Solutions built around real business needs, not complexity</span>
+        </div>
+        <div class="trust-card">
+          <strong>Strategic</strong>
+          <span>Design and systems aligned with business growth goals</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services section -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-tag">Services</div>
+        <h2 class="section-title">Digital services designed to make your business sharper, faster, and more capable.</h2>
+        <p class="section-copy">
+          We focus on building clean brand experiences and useful systems that improve how your business operates every day.
+        </p>
+
+        <div class="services-grid">
+          <article class="service-card animate-up">
+            <div class="service-icon">01</div>
+            <h3>Web Development</h3>
+            <p>
+              Professionally designed, responsive websites that communicate trust, improve user experience,
+              and help turn traffic into enquiries.
+            </p>
+            <ul>
+              <li>Landing pages and company websites</li>
+              <li>Responsive layouts for mobile and desktop</li>
+              <li>Conversion-focused user journeys</li>
+            </ul>
+          </article>
+
+          <article class="service-card animate-up delay-1">
+            <div class="service-icon">02</div>
+            <h3>Automation</h3>
+            <p>
+              Smart workflow automation that removes repetitive effort, saves time, and allows your team
+              to focus on higher-value work.
+            </p>
+            <ul>
+              <li>Lead handling and enquiry routing</li>
+              <li>Task and process automation</li>
+              <li>Operational efficiency improvements</li>
+            </ul>
+          </article>
+
+          <article class="service-card animate-up delay-2">
+            <div class="service-icon">03</div>
+            <h3>Data Solutions</h3>
+            <p>
+              Better structure for your business information so you can understand performance,
+              reduce confusion, and make more confident decisions.
+            </p>
+            <ul>
+              <li>Business dashboards and visibility</li>
+              <li>Data organization and reporting</li>
+              <li>Decision-support systems</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- About / showcase split section -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-tag">About Syncra Digital</div>
+        <h2 class="section-title">A small agency with a premium standard for design, systems, and execution.</h2>
+        <p class="section-copy">
+          Syncra Digital helps businesses modernize how they present themselves and how they operate behind the scenes.
+          We keep things clean, strategic, and practical.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-image">
+            <img
+              src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80"
+              alt="Professionals collaborating around business strategy and digital solutions"
+            />
+            <div class="feature-badge">
+              <strong>Modern systems. Clear execution.</strong>
+              <span>We bring together design quality and operational efficiency.</span>
+            </div>
+          </div>
+
+          <div class="feature-content">
+            <div class="feature-panel">
+              <h3>Clarity over complexity</h3>
+              <p>
+                We believe digital work should solve problems clearly and elegantly, not overwhelm businesses
+                with unnecessary layers or confusing tools.
+              </p>
+            </div>
+
+            <div class="feature-panel">
+              <h3>Design that feels credible</h3>
+              <p>
+                Strong visuals shape perception. We create polished digital touchpoints that help your business
+                appear professional, trustworthy, and current.
+              </p>
+            </div>
+
+            <div class="feature-panel">
+              <h3>Systems that support growth</h3>
+              <p>
+                Beyond appearance, we help structure the behind-the-scenes work so operations become more organized,
+                more scalable, and easier to manage.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process section -->
+    <section class="section" id="process">
+      <div class="container">
+        <div class="section-tag">Process</div>
+        <h2 class="section-title">A simple, professional process from idea to execution.</h2>
+        <p class="section-copy">
+          We keep delivery focused and structured so your project moves from strategy to implementation with clarity.
+        </p>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <div class="process-number">1</div>
+            <h3>Discover</h3>
+            <p>We learn about your business, your goals, and the bottlenecks or opportunities worth solving first.</p>
+          </article>
+
+          <article class="process-card">
+            <div class="process-number">2</div>
+            <h3>Design</h3>
+            <p>We shape the interface, user flow, and system structure so the solution feels premium and works clearly.</p>
+          </article>
+
+          <article class="process-card">
+            <div class="process-number">3</div>
+            <h3>Build</h3>
+            <p>We implement the website, workflow, or data system with attention to quality, responsiveness, and maintainability.</p>
+          </article>
+
+          <article class="process-card">
+            <div class="process-number">4</div>
+            <h3>Refine</h3>
+            <p>We improve, polish, and prepare the final result so the business gets something sharp, useful, and ready to use.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact section with WhatsApp and simple form -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-tag">Contact</div>
+        <h2 class="section-title">Let’s build something that makes your business look and work better.</h2>
+        <p class="section-copy">
+          Reach out for a new website, workflow automation, or data solution. Use WhatsApp for a quick conversation
+          or send a message through the form.
+        </p>
+
+        <div class="contact-wrap">
+          <div class="contact-panel">
+            <h3>Quick contact</h3>
+            <p>Ideal if you want to discuss your project directly and get the conversation started fast.</p>
+
+            <ul class="contact-list">
+              <li><strong>Services:</strong> Websites, automation, and data systems</li>
+              <li><strong>Approach:</strong> Clean execution, practical solutions, premium presentation</li>
+            </ul>
+
+            <!-- WhatsApp note:
+                 Replace with your phone number if needed:
+                 https://wa.me/2348012345678?text=Hello...
+            -->
+            <a
+              class="whatsapp-btn"
+              href="https://wa.me/?text=Hello%20Syncra%20Digital%2C%20I%27m%20interested%20in%20your%20services."
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Chat on WhatsApp
+            </a>
+          </div>
+
+          <div class="form-panel">
+            <h3>Send a message</h3>
+            <p>This form is currently front-end only and ready to be connected to Formspree, Netlify Forms, or a custom backend.</p>
+
+            <form class="contact-form" action="#" method="post">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" placeholder="Your name" required />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="you@example.com" required />
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Tell us a little about your project" required></textarea>
+              </div>
+
+              <button type="submit" class="btn-primary">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <p>© 2026 Syncra Digital. Built for modern businesses.</p>
+      <p>Web Development • Automation • Data Solutions</p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp action -->
+  <a
+    class="floating-whatsapp"
+    href="https://wa.me/?text=Hello%20Syncra%20Digital%2C%20I%27m%20interested%20in%20your%20services."
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Chat with Syncra Digital on WhatsApp"
+    title="Chat on WhatsApp"
+  >
+    ✆
+  </a>
+</body>
+</html>
