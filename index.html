@@ -1081,9 +1081,12 @@
 
           <div class="form-panel">
             <h3>Send a message</h3>
-            <p>This form is currently front-end only and ready to be connected to Formspree, Netlify Forms, or a custom backend.</p>
+            <p>This form now submits through a lightweight form service so visitors can send messages more smoothly without relying on their own mail app.</p>
 
-            <form class="contact-form" action="mailto:moniviogi41@gmail.com" method="post" enctype="text/plain">
+            <form class="contact-form" action="https://formsubmit.co/moniviogi41@gmail.com" method="post">
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_subject" value="New message from Syncra Digital website" />
+              <input type="hidden" name="_template" value="table" />
               <div class="form-group">
                 <label for="name">Name</label>
                 <input id="name" name="name" type="text" placeholder="Your name" required />
